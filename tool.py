@@ -126,7 +126,7 @@ class tool:
 
 cam = cv2.VideoCapture("vid9.mp4")
 
-t = tool(model_path= "best.pt", time_step= 30, is_draw= True)
+t = tool(model_path= "best.pt", time_step= 30, is_draw= True, device= 0)
 
 while True:
     r, cap = cam.read()
