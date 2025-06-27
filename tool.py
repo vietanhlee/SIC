@@ -72,9 +72,9 @@ class tool:
             self.list_speed_motor.clear()
             
     def process(self, frame_input) -> None:   
-        frame_in = cv2.resize(frame_input.copy(), (400, 300))
+        frame_in = cv2.resize(frame_input.copy(), (1600, 1200))
         self.frame_output = frame_in.copy()
-        self.frame_predict = np.ascontiguousarray(frame_in[135:, 60:])
+        self.frame_predict = np.ascontiguousarray(frame_in[540:, 150:])
         
         frame_predict_cp = self.frame_predict.copy()
         self.speed_tool.process(frame_predict_cp)
@@ -113,33 +113,33 @@ class tool:
                 color = (0, 0, 255) if class_id == 1 else (255, 0, 0)
                 
                 cv2.putText(self.frame_predict, label, (cx, cy - 10),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.3, (255, 200, 0), 1)
-                cv2.circle(self.frame_predict, (cx, cy), 2, color, -1)
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 200, 0), 2)
+                cv2.circle(self.frame_predict, (cx, cy), 6, color, -1)
 
-        self.frame_output[135:, 60:] = self.frame_predict
+        self.frame_output[540:, 150:] = self.frame_predict
         
-        cv2.rectangle(self.frame_output, (60, 135), (400, 300), (0, 255, 255), 2)
-        cv2.putText(self.frame_output, f"Xe may: {self.count_motor_display} xe, Vtb = {self.speed_motor_display} km/h", (5, 20),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 200), 2)
-        cv2.putText(self.frame_output, f"O to: {self.count_car_display} xe, Vtb = {self.speed_car_display} km/h", (5, 50),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (200, 0, 0), 2)
+        cv2.rectangle(self.frame_output, (150, 540), (1600, 1200), (0, 255, 255), 2)
+        cv2.putText(self.frame_output, f"Xe may: {self.count_motor_display} xe, Vtb = {self.speed_motor_display} km/h", (5, 50),
+                    cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 200), 5)
+        cv2.putText(self.frame_output, f"O to: {self.count_car_display} xe, Vtb = {self.speed_car_display} km/h", (5, 120),
+                    cv2.FONT_HERSHEY_SIMPLEX, 2, (200, 0, 0), 5)
 
-cam = cv2.VideoCapture("vid9.mp4")
+# cam = cv2.VideoCapture("vid9.mp4")
 
-t = tool(model_path= "best.pt", time_step= 30, is_draw= True, device= 0)
+# t = tool(model_path= "best.pt", time_step= 30, is_draw= True)
 
-while True:
-    r, cap = cam.read()
+# while True:
+#     r, cap = cam.read()
     
-    t.process(cap)
+#     t.process(cap)
     
-    if t.result and t.delta_time >= t.time_step:
-        print(t.result)
+#     if t.result and t.delta_time >= t.time_step:
+#         print(t.result)
         
-    cv2.imshow('out', t.frame_output)
+#     cv2.imshow('out', t.frame_output)
     
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
 
-cam.release()
-cv2.destroyAllWindows()
+# cam.release()
+# cv2.destroyAllWindows()
