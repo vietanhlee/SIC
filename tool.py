@@ -124,7 +124,7 @@ class tool:
         cv2.putText(self.frame_output, f"O to: {self.count_car_display} xe, Vtb = {self.speed_car_display} km/h", (5, 50),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (200, 0, 0), 2)
 
-cam = cv2.VideoCapture("video test/vid10.mp4")
+cam = cv2.VideoCapture("vid9.mp4")
 
 t = tool(model_path= "best.pt", time_step= 30, is_draw= True)
 
